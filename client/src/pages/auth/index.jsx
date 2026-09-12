@@ -1,34 +1,104 @@
-import {initialSignInFormData, initialSignUpFormData } from "@/components"
-import { createContext, useState } from "react";
-
-export const AuthContext = createContext(null);
-
-export default function AuthProvider({ children }) {
-    const [signInFormData, setSignInFormData] = useState(initialSignInFormData)
-
-    const []
-}
+import { useState } from "react";
+import { Link } from "react-router-dom"
+import { GraduationCap } from "lucide-react"
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs"
+import { signUpFormControls } from "@/config";
+import { CardHeader } from "@/components/ui/card";
+import { useCSPContext } from "@base-ui/react/internals/csp-context";
+import { AuthContext } from "@/context/auth-context";
+import { log } from "node:console";
 
 
 function AuthPage() {
-const [activeTab, setActiveTab]= useState('signin')
+const [activeTab, setActiveTab]= useState('signin');
+const {
+    signInFormData,
+    setSignInFormData,
+    signUpFormData, setSignIUpFormData
+} = useContext(AuthContext);
 
 function handleTabChange(value){
     setActiveTab(value)
 }
 
+function checkIfSignInFormIsValid(){
+    return (
+        signInFormData &&
+        signInFormData.userEmail !== '' && 
+        signInFormData.password !== ''
+    )
+}
+
+function checkIfSignUpFormIsValid(){
+    return (
+        signUpFormData && 
+        signUpFormData.userName !== '' &&
+        signUpFormData.userEmail !== '' && 
+        signUpFormData.password !== ''
+    )
+}
+
+console.log(signInFormData)
+
   return (
     <div className="flex flex-col min-h-screen">
         <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <link to= {'/'} className="flex items-center justify-center">
+        <Link to= '/' className="flex items-center justify-center">
         <GraduationCap className="h-8 w-8 mr-4"/>
         <span className="font-extrabold text-xl">LMS LEARN</span>
-        </link>
+        </Link>
         </header>
         <div className="flex items-center justify-center min-h-screen bg-background">
             <Tabs value={activeTab} defaultValue="signin" onValueChange= {handleTabChange} className="w-full max-w-md">
-                <TabList></TabList>
-            </Tabs>
+                
+                    
+       <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="signin">Account</TabsTrigger>
+         <TabsTrigger value="signup">Password</TabsTrigger>
+         </TabsList>
+         <TabsContent value="signin">
+            <Card className="p-6 space-y-4">
+                <CardHeader>
+                    <CardTitle>Sign in to your account</CardTitle>
+                    <CardDescription>
+                        Enter your email and Password to access your account
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                    <CommonForm 
+         formControls={signInFormControls} buttonText={'Sign In'}
+         formData={signInFormData}
+         setFormData={setSignInFormData}
+         isButtonDisabled={!checkIfSignInFormIsValid()}
+         />
+                </CardContent>
+            </Card>
+         </TabsContent>
+       <TabsContent value="signup">
+        <Card className="p-6 space-y-4">
+                <CardHeader>
+                    <CardTitle>Create a new account</CardTitle>
+                    <CardDescription>
+                        Enter your details to get starded
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                    <CommonForm 
+         formControls={signUpFormControls} buttonText={'Sign Up'} 
+         formData={signUpFormData}
+         setFormData={setSignUpFormData}
+         isButtonDisabled={!checkIfSignUpFormIsValid()}
+         />
+                </CardContent>
+            </Card>
+       </TabsContent>
+ </Tabs>
+                
         </div>
     </div>
   )

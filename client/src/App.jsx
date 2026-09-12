@@ -1,11 +1,10 @@
-import { Route, Routes} from "react-router-dom"
-import {Button } from "./components/ui/button";
-import <AuthPage> from "./components/pages/AuthPath"
+import { Route, Routes } from "react-router-dom"
+import AuthPage from "./pages/auth/index.jsx"
 
 function App() {
   return (
    <Routes>
-    <Route path= "/auth" element={<AuthPath/>}/>
+    <Route path= "/auth" element={<AuthPage />}/>
    </Routes>
   )
 }
