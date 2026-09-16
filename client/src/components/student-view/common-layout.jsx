@@ -3,8 +3,8 @@
 function () {
     return (
         <div>
-            Common context
-            
+            <StudentViewCommonHeader />
+            <Outlet />
         </div>
     );
 }
