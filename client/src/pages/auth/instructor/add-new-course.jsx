@@ -4,7 +4,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import { courseCurriculumInitialFormData, courseLandingInitialFormData } from "@/config";
 import { AuthContext } from "@/context/auth-context";
 import { InstructorContext } from "@/context/instructor-context";
-import { addNewCourseService, fetchInstructorCourseDetailsService } from "@/services";
+import { addNewCourseService, fetchInstructorCourseDetailsService, updateCourseByIdService } from "@/services";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -71,13 +71,15 @@ function AddNewCoursePage() {
     isPublised : true,
         }
 
-        const response = await addNewCourseService(courseFinalFormData);
-
-        if(response?.success) {
-            setCourseCurriculumFormData(courseLandingInitialFormData);
-            setCourseCurriculumFormData(courseCurriculumInitialFormData);
-            navigate(-1);
-        }
+     const response = 
+      currentEditedCourseId !== null ? await updateCourseByIdService(currentEditedCourseId, courseFinalFormData) : 
+     await addNewCourseService(courseFinalFormData)
+    if(response?.success) {
+    setCourseLandingFormData(courseLandingInitialFormData);
+    setCourseCurriculumFormData(courseCurriculumInitialFormData);
+    navigate(-1);
+    setCurrentEditedCourseId(null)
+}
 
         console.log(courseFinalFormData, 'courseFinalFormData');
 
@@ -107,8 +109,8 @@ function AddNewCoursePage() {
     }, [currentEditedCourseId])
 
     useEffect(()=>{
-        if(params) setCurrentEditedCourseId(params?.courseId)
-    }, [params])
+        if(params?.courseId) setCurrentEditedCourseId(params?.courseId)
+    }, [params?.courseId])
 
     return <div className="container mx-auto p-4">
         <div className="flex justify-between ">
