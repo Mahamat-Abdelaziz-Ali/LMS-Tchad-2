@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { courseCurriculumInitialFormData, courseLandingInitialFormData } from "@/config";
+import { InstructorContext } from "@/context/instructor-context";
 //import { InstructorContext } from "@/context/instructor-context";
 //import { useContext } from "react";
 
 function InstructorCourses(listOfCourses) {
 
     const navigate = useNavigate();
+    const {setCurrentEditedCourseId, setCourseLandingFormData, setCourseCurriculumFormData} = useContext(InstructorContext)
 
     //const{currentEditedCourseId, setCurrentEditedCourseId} = useContext(InstructorContext);
 
@@ -15,7 +18,12 @@ function InstructorCourses(listOfCourses) {
         <Card>
             <CardHeader className="flex justify-between flex-row items-center">
                 <CardTitle className="text-3xl font-extrabold">All Courses</CardTitle>
-                <Button onClick={()=> navigate('/instructor/create-new-course')} className="p-6">Create New Course</Button>
+                <Button onClick={()=> {setCurrentEditedCourseId(null)
+                navigate('/instructor/create-new-course')
+                setCourseLandingFormData(courseLandingInitialFormData)
+                setCourseCurriculumFormData(courseCurriculumInitialFormData);
+            }} 
+                className="p-6">Create New Course</Button>
             </CardHeader>
             <CardContent>
                 <div className="overflow-x-auto">

@@ -84,13 +84,26 @@ function AddNewCoursePage() {
     }
 
     async function fetchCurrentCourseDetails(){
-        const response = await fetchInstructorCourseDetailsService()
+        const response = await fetchInstructorCourseDetailsService(currentEditedCourseId);
+
+        if(response?.success) {
+            constsetCourseFormData = Object.keys(courseLandingInitialFormData).reduce((acc,key)=>{
+                acc[key] = response?.data[key]  || courseLandingInitialFormData[key]
+
+                return acc
+            }, {})
+            console.log(setCourseFormData, response?.data,'setCourseFormData');
+            setCourseLandingFormData(setCourseFormData);
+            setCourseCurriculumFormData(response?.data?.curriculum)
+        }
+
+        console.log(response, 'response')
     }
 
     useEffect(()=>{
 
-        if(currentEditedCourseId) fetchCurrentCourseDetails();
-        console.log(currentEditedCourseId, );
+        if(currentEditedCourseId !== null) fetchCurrentCourseDetails();
+        //console.log(currentEditedCourseId, );
     }, [currentEditedCourseId])
 
     useEffect(()=>{
