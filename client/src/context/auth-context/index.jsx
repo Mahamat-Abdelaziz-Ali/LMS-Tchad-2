@@ -103,6 +103,13 @@ if(data.success) {
         }
     }
 
+    function resetCredentials(){
+        setAuth({
+            authenticate: false,
+            user: null
+        })
+    }
+
     useEffect(()=>{
         checkAuthService();
     }, []);
@@ -117,6 +124,7 @@ if(data.success) {
         handleRegisterUser,
         handleLoginUser,
         auth,
+        resetCredentials,
     }}>
         {
             loading ? <Skeleton/> : children

@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 const mongoose=require("mongoose");
-const authRoutes = require('./routes/auth-routes/index.js')
+const authRoutes = require('./routes/auth-routes/index');
+const mediaRoutes = require("./routes/instructor-routes/media-routes");
+const instructorCourseRoutes = require("./routes/instructor-routes/course-routes");
 
 dotenv.config()
 
@@ -26,6 +28,10 @@ mongoose.connect(MONGO_URI).then(()=>{console.log("mongoosedb is connected on po
 //Routes Configuration
 
 app.use('/auth',authenRoutes);
+
+app.use("/media", mediaRoutes);
+
+app.use("/instructor/course", instructorCourseRoutes);
 
 app.use((err, req, res, next)=>{
     console.log(err.stack);

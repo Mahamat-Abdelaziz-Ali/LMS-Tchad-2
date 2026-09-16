@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export const signUpFormControls = [
     {
         name : 'userName',
@@ -50,3 +52,47 @@ export const initialSignUpFormData = {
     userEmail: "",
     password: "",
 };
+
+
+
+
+
+
+
+
+
+export const courseLandingInitialFormData = {
+    title: "",
+    category: "",
+    level: "",
+    primaryLanguage: "",
+    subtitle: "",
+    description: "",
+    pricing: "",
+    objectives: "",
+    welcomeMessage: "",
+    image : "", 
+};
+
+
+
+export const courseCurriculumInitialFormData = [
+    {
+        title : '',
+        videoUrl :'',
+        freePreview : false,
+        public_Id : ''
+    },
+    {
+        title : '',
+        videoUrl :'',
+        freePreview : false,
+        public_Id : ''
+    },
+    {
+        title : '',
+        videoUrl :'',
+        freePreview : true,
+        public_Id : ''
+    }
+]

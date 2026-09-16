@@ -3,6 +3,7 @@ import AuthPage from "./pages/auth/index.jsx"
 import RouterGuard from "./components/route-guard/index.jsx"
 import InstructorDashboard from "./pages/auth/instructor/index.jsx"
 import StudentViewCommonLayout from "./components/student-view/common-layout.jsx"
+import AddNewCoursePage from "./pages/auth/instructor/add-new-course.jsx"
 
 function App() {
   return (
@@ -14,17 +15,28 @@ function App() {
     user={auth?.user}
      />
      <Route
-     path="/instructor"
+     path="/instructor/create-new-course"
      element={
       <RouterGuard
       elament={
-        <InstructorDashboardpage/>
+        <AddNewCoursePage/>
       }
       authenticated={auth?.authenticated}
       user={auth?.user}
+      />}
       />
-
-     }
+      <Route
+     path="/instructor/edit-course/:courseId"
+     element={
+      <RouterGuard
+      elament={
+        <AddNewCoursePage/>
+      }
+      authenticated={auth?.authenticated}
+      user={auth?.user}
+      />}
+      />
+     
      <Routes path = "/"
      element={
       <RouteGuard
@@ -33,9 +45,9 @@ function App() {
       }
       authenticated={auth?.authenticated}
       user={auth?.user}
-      />
-     }
-       >
+      />}
+     >
+       
       <Route path="" element={<StudentHomePage/>}/>
       <Route 
       path="home" element={
