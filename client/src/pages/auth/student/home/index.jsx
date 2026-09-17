@@ -4,10 +4,14 @@
 
 import { Button } from "@base-ui/react";
 import banner from "../../../../public/banner-img.png"
+import { useContext } from "react";
+import { StudentContext } from "@/context/student-context";
 
 
 
 function StudentHomePage() {
+
+    const {studentCoursesList, setStudentsCoursesList} = useContext(StudentContext);
 
    // const { resetCredentials } = useContext(AuthContext);
 
