@@ -11,7 +11,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
     <AuthProvider>
       <InstructorProvider>
-        <App/>
+        <StudentProvider>
+          <App />
+        </StudentProvider>
         </InstructorProvider>
       </AuthProvider>
     </BrowserRouter>
