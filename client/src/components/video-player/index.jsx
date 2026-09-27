@@ -1,9 +1,10 @@
 import ReactPlayer from "react-player";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Play } from "lucide-react";
+import { ProgressValue } from "@base-ui/react";
 
 
-function videoPlayer({width = '100%', height = "100%", url}) {
+function videoPlayer({width = '100%', height = "100%", url, onProgressUpdate, progressData}) {
 
     const [playing, setPlaying] = useState(false);
     const [volume, setVolume]= useState(0.5);
@@ -12,6 +13,8 @@ function videoPlayer({width = '100%', height = "100%", url}) {
     const [seeking, setSeeking] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [showControls, setShowControls] = useState(true);
+
+    //console.log(played, 'played');
     
     const playerRef = useRef(null);
     const playerContainerRef = useRef(null);
@@ -102,8 +105,18 @@ function videoPlayer({width = '100%', height = "100%", url}) {
             document.removeEventListener('fullscreenchange', handleFullScreenChange)
         }
 
-    }, [])
+    }, []);
 
+    useEffect(()=>{
+        if(played === 1) {
+            onProgressUpdate({
+                ...progressData,
+                ProgressValue : played,
+            })
+        }
+    })
+
+    console.log(currentLecture, 'currentLecture');
 
     return (
         <div ref={playerContainerRef}
