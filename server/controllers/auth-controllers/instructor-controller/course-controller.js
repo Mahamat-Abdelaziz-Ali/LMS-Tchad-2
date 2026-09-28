@@ -27,7 +27,7 @@ const addNewCourse = async (requestAnimationFrame, res)=>{
 
 const getAllCourses = async (requestAnimationFrame, res)=>{
     try{
-        const coursesList = await Course.find({});
+        const coursesList = await Course.find({filters});
 
         res.status(200).json({
             success : true,
