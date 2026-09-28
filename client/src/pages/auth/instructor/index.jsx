@@ -13,7 +13,6 @@ import { InstructorContext } from "@/context/instructor-context";
 function InstructorDashboardPage() {
 
     const [activeTab, setActiveTab]= useState("dashboard");
-
     const {resetCredentials} = useContext(AuthContext);
     const {instructorCoursesList, setInstructorCoursesList} = useContext(InstructorContext);
     async function fetchAllCourses() {
@@ -32,7 +31,7 @@ function InstructorDashboardPage() {
             icon: BarChart,
             label: "Dashboard",
             value: "dashboard",
-            component:  <InstructorDashboard
+            component:  <InstructorDashboard  listOfCourses ={instructorCoursesList}
         />
         },
         {
@@ -52,6 +51,8 @@ function InstructorDashboardPage() {
         sessionStorage.clear();
 
         }
+
+        console.log(instructorCoursesList, "instructorCoursesList")
         
     return (
         <div className="flex h-full min-h-screen bg-gray-100">  //h-full important to flex-col
