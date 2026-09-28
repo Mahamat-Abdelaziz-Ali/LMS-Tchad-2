@@ -4,14 +4,58 @@
 
 import { Button } from "@base-ui/react";
 import banner from "../../../../public/banner-img.png"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StudentContext } from "@/context/student-context";
+import { fetchStudentViewCourseListService } from "@/services";
+import { AuthContext } from "@/context/auth-context";
+import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 
 
 function StudentHomePage() {
 
-    const {studentCoursesList, setStudentsCoursesList} = useContext(StudentContext);
+   // const navigate = useNavigate();
+
+    const {studentViewCoursesList, setStudentViewCoursesList} = useContext(StudentContext);
+    const {auth} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    function handleNavigateToCoursesPage(getCurrentId) {
+        console.log(getCurrentId);
+        sessionStorage.removeItem('filters');
+        const currentFilter = {
+            category : [getCurrentId]
+        }
+        sessionStorage.setItem('filters', JSON.stringify(currentFilter));
+
+        navigate('');
+    }
+
+    async function fetchAllStudentViewCourses() {
+        const response = await fetchStudentViewCourseListService();
+        if(response?.success) setStudentViewCoursesList(response?.data)
+
+       // console.log(response) 
+    }
+
+            async function handleCourseNavigate(getCurrentCourseId) {
+                const response = await checkCoursePurchaseInfoService(getCurrentCourseId, auth?.user?._id);
+    
+                if(response?.success) {
+                    if(response?.data) {
+                        navigate(`/course-progress/${getCurrentCourseId}`)
+                    } else {
+                        navigate(`/course/details/${getCurrentCourseId}`)
+                    }
+                }
+    
+                console.log(response, handleCourseNavigate)
+            }
+
+    useEffect(()=>{
+        fetchAllStudentViewCourses()
+    }, [])
 
    // const { resetCredentials } = useContext(AuthContext);
 
@@ -35,10 +79,35 @@ function StudentHomePage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {
                     courseCategories.map(categoryItem =>
-                        <Button className="justify-start" variant="outline" key={categoryItem.id}>{categoryItem.label}</Button>
+                        <Button className="justify-start" variant="outline" key={categoryItem.id
+                        }
+                        onClick={()=>handleNavigateToCoursesPage(categoryItem.id)}
+                        >{categoryItem.label}</Button>
                     )
                 }
             </div>
+        </section>
+        <section className="py-12 px-4 lg:px-8">
+        <h2 className="text-2xl font-bold mb-6">Featured Courses</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {
+                studentViewCoursesList && studentViewCoursesList.length > 0 ? 
+                studentViewCoursesList.map(courseItem => 
+                <div onClick={()=>handleCourseNavigate(courseItem?._id)} className="border rounded-lg overflow-hidden shadow cursor-pointer">
+                    <img src={courseItem?.image}
+                    width={300}
+                    height={150}
+                    className="w-full h-40 object-cover"
+                    alt="" />
+                    <div className="p-4">
+                        <h3 className="font-bold mb-2">{courseItem?.title}</h3>
+                        <p className="trxt-sm text-gray-700 mb-2">{courseItem?.instructorName}</p>
+                        <p className="font-bold text-[16px]">${courseItem?.pricing}</p>
+                    </div>
+
+                </div>) : <h1>No Courses Found</h1>
+            }
+        </div>
         </section>
     </div>
 }
