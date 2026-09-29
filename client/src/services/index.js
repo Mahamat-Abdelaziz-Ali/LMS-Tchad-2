@@ -1,8 +1,8 @@
 import axiosInstance from "@/apio/axiosInstance";
 
 export async function registerService(formData){
-    const data = await axiosInstance.post('/auth/register', {
-        const data = await axiosInstance.post('/auth/register', {
+    const data = await axiosInstance.post(`/auth/register`, {
+        const data = await axiosInstance.post(`/auth/register`, {
             ...formData,
             role : 'user'
         })
@@ -12,20 +12,20 @@ export async function registerService(formData){
 }
 
 export async function loginService(formData) {
-    const { data } = await axiosInstance.post("/auth/register", formData);
+    const { data } = await axiosInstance.post(`/auth/register`, formData);
 
     return data;
 }
 
 export async function checkAuth() {
-    const { data } = await axiosInstance.get("/auth/check-auth");
+    const { data } = await axiosInstance.get(`/auth/check-auth`);
 
     return data;
 }
 
 
 export async function mediaUploadService(formData, onProgressCallback) {
-    const { data } = await axiosInstance.post("/media/upload", formData, {
+    const { data } = await axiosInstance.post(`/media/upload`, formData, {
         onUploadProgress : (ProgressEvent =>{
             const percentCompleted = Math.round((ProgressEvent.loaded * 100)/ProgressEvent.total)
             onProgressCallback(percentageCompleted)
@@ -43,13 +43,15 @@ export async function mediaDeleteService(id) {
 }
 
 export async function fetchInstructorCourseListService() {
-    const { data } = await axiosInstance.get("/instructor/course/get");
+    const { data } = await axiosInstance.get(`/instructor/course/get`);
 
     return data;
 }
 
+
+
 export async function addNewCourseService(formData) {
-    const { data } = await axiosInstance.get("/instructor/course/add", formData);
+    const { data } = await axiosInstance.get(`/instructor/course/add`, formData);
 
     return data;
 }
@@ -67,7 +69,7 @@ export async function updateCourseByIdService(id, formData) {
 }
 
 export async function mediaBulkUploadService(formData, onProgressCallback) {
-    const { data } = await axiosInstance.post("/media/bulk-upload", formData, {
+    const { data } = await axiosInstance.post(`/media/bulk-upload`, formData, {
         onUploadProgress : (ProgressEvent =>{
             const percentCompleted = Math.round((ProgressEvent.loaded * 100)/ProgressEvent.total)
             onProgressCallback(percentageCompleted)
@@ -76,3 +78,74 @@ export async function mediaBulkUploadService(formData, onProgressCallback) {
 
     return data;
 };
+
+
+export async function fetchStudentViewCourseListService(query) {
+    const { data } = await axiosInstance.get(`/student/course/get?${query}`);
+
+    return data;
+}
+
+
+export async function fetchStudentViewCourseDetailsService(courseId) {
+    const { data } = await axiosInstance.get(`/student/course/get/details/${courseId}`);
+
+    return data;
+}
+
+export async function checkCoursePurchaseInfoService(courseId, studentId) {
+    const { data } = await axiosInstance.get(`/student/course/purchase-info/${courseId}/${studentId}`);
+
+    return data;
+}
+
+
+export async function createPaymentService(formData) {
+    const { data } = await axiosInstance.get(`/student/order/create`, formData);
+
+    return data;
+}
+
+
+export async function captureAndFinalizePaymentService(paymentId, payerId, orderId) {
+    const { data } = await axiosInstance.get(`/student/order/capture`, 
+        paymentId, payerId, orderId
+    );
+
+    return data;
+}
+
+
+export async function fetchStudentBoughtCoursesService(studentId) {
+    const { data } = await axiosInstance.get(`/student/courses-bought/get/${studentId}`);
+
+    return data;
+}
+
+
+export async function getCurrentCourseProgressService(userId, courseId) {
+    const { data } = await axiosInstance.get(`/student/course-progress/get/${userId}/${courseId}`);
+
+    return data;
+}
+
+
+export async function markCurrentLectureAsViewedService(userId, courseId, lectureId) {
+    const { data } = await axiosInstance.post(`/student/course-progress/mark-lecture-viewed`,
+        {
+            userId, courseId, lectureId
+        }
+    );
+
+    return data;
+}
+
+
+export async function resetCurrentCourseProgressService(userId, courseId) {
+    const { data } = await axiosInstance.post(`/student/course-progress/reset-progress`, {
+        userId, courseId
+    });
+
+    return data;
+}
+
