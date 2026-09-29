@@ -23,4 +23,4 @@ const authenticate = (req, res, next)=>{
     next();
 };
 
-module.exports = 
+module.exports = {verifyToken, authenticate};
