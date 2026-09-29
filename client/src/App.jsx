@@ -4,6 +4,8 @@ import RouterGuard from "./components/route-guard/index.jsx"
 import InstructorDashboard from "./pages/auth/instructor/index.jsx"
 import StudentViewCommonLayout from "./components/student-view/common-layout.jsx"
 import AddNewCoursePage from "./pages/auth/instructor/add-new-course.jsx"
+import StudentCoursesPage from "./pages/auth/student/student-courses/index.jsx"
+import StudentViewCourseProgressPage from "./pages/auth/student/course-progress/index.jsx"
 
 function App() {
   return (
@@ -48,11 +50,30 @@ function App() {
       />}
      >
        
-      <Route path="" element={<StudentHomePage/>}/>
+      <Route path="" element={<StudentHomePage/>}/><></>
       <Route 
       path="home" element={
         <StudentHomePage/>
       }
+       />
+       <Route 
+      path="courses" element={
+        <StudentViewCoursesPage/>}
+       />
+       
+       <Route path="course/details/:id" element={<StudentViewCourseDetailsPage/>}
+       />
+       <Route 
+      path="payment-return" element={
+        <PaypalPaymentReturnPage/>}
+       />
+       <Route 
+      path="student-courses" element={
+        <StudentCoursesPage/>}
+       />
+       <Route 
+      path="course-progress/:id" element={
+        <StudentViewCourseProgressPage/>}
        />
        </Routes>
 
