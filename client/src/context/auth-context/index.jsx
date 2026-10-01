@@ -1,4 +1,4 @@
-import axiosInstance from "@/apio/axiosInstance";
+import axiosInstance from "@/api/axiosInstance";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
     initialSignInFormData,
