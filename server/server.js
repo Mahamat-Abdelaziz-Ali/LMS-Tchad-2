@@ -1,14 +1,14 @@
 import express from "express";
-import cors from "cors";
+import cors from "cors";                            //importt= packagejs="module"
 import dotenv from "dotenv";
-const mongoose=require("mongoose");
-const authRoutes = require('./routes/auth-routes/index');
-const mediaRoutes = require("./routes/instructor-routes/media-routes");
-const instructorCourseRoutes = require("./routes/instructor-routes/course-routes");
-const studentViewCourseRoutes = require("./routes/student-routes/course-routes");
-const studentViewOrderRoutes = require("./routes/student-routes/order-routes");
-const studentViewCoursesRoutes = require("./routes/student-routes/student-courses-routes");
-const studentCourseProgressRoutes = require("./routes/student-routes/course-progress-routes");
+import mongoose from "mongoose";
+import authRoutes from'./routes/auth-routes/index.js';
+import mediaRoutes from "./routes/auth-routes/instructor-routes/media-routes.js";
+import instructorCourseRoutes from "./routes/auth-routes/instructor-routes/course-routes.js";
+import studentViewCourseRoutes from "./routes/student-routes/course-routes.js";
+import studentViewOrderRoutes from "./routes/student-routes/order-routes.js";
+import studentViewCoursesRoutes from "./routes/student-routes/student-courses-routes.js";
+import studentCourseProgressRoutes from "./routes/student-routes/course-progress-routes.js";
 
 
 dotenv.config()
@@ -32,7 +32,7 @@ mongoose.connect(MONGO_URI).then(()=>{console.log("mongoosedb is connected on po
 
 //Routes Configuration
 
-app.use('/auth',authenRoutes);
+app.use('/auth',authRoutes);
 
 app.use("/media", mediaRoutes);
 
@@ -42,7 +42,7 @@ app.use("/student/course", studentViewCourseRoutes);
 
 app.use('/student/order', studentViewCourseRoutes);
 
-app.use('/student/courses-bought', studentCoursesRoutes);
+app.use('/student/courses-bought', studentViewCoursesRoutes);
 
 app.use('/student/course-progress', studentCourseProgressRoutes)
 

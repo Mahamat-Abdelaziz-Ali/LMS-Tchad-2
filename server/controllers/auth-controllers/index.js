@@ -1,6 +1,6 @@
-const User = require("../../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require()
+import User from "../../models/User.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const registerUser = async(req, res)=>{
     const {userName, userEmail, password, role} = req.body;
@@ -19,16 +19,14 @@ const registerUser = async(req, res)=>{
         userName,
         userEmail,
         role,
-        password,
-        : hashPassword
-
+        password: hashPassword,
+        });
         await newUser.save();
 
         return res.status(201).json({
             success: true,
             message : "User registered successfully!"
         })
-    })
 }
 
 const loginUser = async(req, res)=>{
@@ -51,7 +49,7 @@ const loginUser = async(req, res)=>{
     userName : checkUser.userName,
     userEmail : checkUser.userEmail,
     role : checkUser.role,
-    }, "JWT_SECRET", {expiresIn : "120m"})
+    }, process.env.JWT_SECRET, {expiresIn : "120m"})
 
     res.status(200).json({
         success: true,
@@ -68,4 +66,4 @@ const loginUser = async(req, res)=>{
     })
 };
 
-module.exports = { registerUser, loginUser };
+export { registerUser, loginUser };

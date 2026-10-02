@@ -1,21 +1,21 @@
-const express=require("express");
-const {registerUser, loginUser}= reqire("../../controllers/auth-controllers");
-const authenticateMidddleware = require("../../middleware")
-const router = express.Router();
+//import express from "express";
+import {registerUser, loginUser} from "../../controllers/auth-controllers/index.js";
+import authenticateMidddleware from "../../middleware/auth-middleware.js";
+const router= express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-Router.get("/check-auth", authenticateMidddleware, (req, res)=>{
+router.get("/check-auth", authenticateMidddleware, (req, res)=>{
     const user = req.user
 
     res.status(200).json({
         success : true,
         message : "Authenticated user!",
         data : {
-            accessToken,
-            
+            user
         }
     })
 });
 
-module.exports = router;
+
+export default router;

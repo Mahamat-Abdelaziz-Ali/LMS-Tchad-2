@@ -1,4 +1,4 @@
-const Course = require('../../models/Course');
+import Course from '../../models/Course';
 
 
 const addNewCourse = async (requestAnimationFrame, res)=>{
