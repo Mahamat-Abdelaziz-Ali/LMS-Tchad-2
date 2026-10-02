@@ -1,4 +1,4 @@
-import { Input, SelectItem } from "@base-ui/react";
+import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { 
@@ -9,10 +9,10 @@ import {
     SelectValue
  } from "../ui/select";
 
-function FormControls(formControls =[], formData, setFormData){
+function FormControls({formControls =[], formData, setFormData}){
     function renderComponentByType(getControlItem){
         let element= null;
-        const currentControlItemValue = formData[getControlItem.name]  || 
+        const currentControlItemValue = formData[getControlItem.name]  || "";
 
         switch(getControlItem.componentType){
             case 'input':
@@ -69,8 +69,8 @@ function FormControls(formControls =[], formData, setFormData){
                 break;
 
             default:
-                    case 'input':
-                element=(
+                 element=null
+               {/* element=(
                 <Input 
                 id={getControlItem.name}
                 name={getControlItem.name}
@@ -82,7 +82,7 @@ function FormControls(formControls =[], formData, setFormData){
                 })}
                 />
                 )
-                
+                */};
                 break;
 
         }
@@ -94,11 +94,11 @@ function FormControls(formControls =[], formData, setFormData){
             {
                 formControls.map(controlItem=>
 
-                    <div key={controleItem.name}>
-                        <Label htmlFor={controleItem.name}>{controleItem.label}
+                    <div key={controlItem.name}>
+                        <Label htmlFor={controlItem.name}>{controlItem.label}
                         </Label>
                         {
-                            renderComponentByType(controleItem)
+                            renderComponentByType(controlItem)
                         }
                     </div>
                 )
@@ -107,5 +107,8 @@ function FormControls(formControls =[], formData, setFormData){
 
         </div>
 
-    );
+    )
 }
+
+
+export default FormControls;

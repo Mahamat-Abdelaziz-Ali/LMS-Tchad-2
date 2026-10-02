@@ -7,9 +7,11 @@ import {
   TabsTrigger,
   TabsContent,
 } from "@/components/ui/tabs"
-import { signUpFormControls } from "@/config";
-import { CardHeader } from "@/components/ui/card";
+import { signUpFormControls, signInFormControls } from "@/config";
 import { AuthContext } from "@/context/auth-context";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardDescription } from "@/components/ui/card";
+import CommonForm from "@/components/common-form/index";
 
 
 function AuthPage() {
@@ -59,8 +61,8 @@ console.log(signInFormData)
                 
                     
        <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="signin">Account</TabsTrigger>
-         <TabsTrigger value="signup">Password</TabsTrigger>
+        <TabsTrigger value="signin">Sign In</TabsTrigger>
+         <TabsTrigger value="signup">Sign Up</TabsTrigger>
          </TabsList>
          <TabsContent value="signin">
             <Card className="p-6 space-y-4">
@@ -106,4 +108,4 @@ console.log(signInFormData)
   )
 }
 
-export default AuthPage
+export default AuthPage;

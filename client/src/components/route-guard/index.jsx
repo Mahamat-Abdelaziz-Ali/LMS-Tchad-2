@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 
-function RouterGuard({authenticated, user, elament}){
+function RouterGuard({authenticated, user, element}){
 
     const location = useLocation();
 
