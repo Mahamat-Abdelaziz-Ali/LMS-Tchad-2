@@ -9,6 +9,10 @@ import StudentViewCourseProgressPage from "./pages/auth/student/course-progress/
 import StudentHomePage from "./pages/auth/student/home/index.jsx";
 import { useContext } from "react";
 import { AuthContext } from "./context/auth-context";
+import StudentViewCoursesPage from "./pages/auth/student/courses/index.jsx"
+import StudentViewCourseDetailsPage from "./pages/auth/student/course-details/index.jsx";
+import PaypalPaymentReturnPage from "./pages/auth/student/payment-return/index.jsx";
+import NotFoundPage from "./pages/auth/not-found/index.jsx";
 
 
 function App() {

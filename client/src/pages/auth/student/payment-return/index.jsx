@@ -43,3 +43,6 @@ function PaypalPaymentReturnPage() {
         </Card>
     );
 }
+
+
+export default PaypalPaymentReturnPage;
