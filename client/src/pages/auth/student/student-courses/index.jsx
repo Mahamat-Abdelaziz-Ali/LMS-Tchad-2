@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function StudentCoursesPage() {
     
-    const {auth} = useContext(AuthContext) 
+    const {auth} = useContext(AuthContext);
 
     const {studentBoughtCoursesList, setStudentBoughtCoursesList} = useContext(StudentContext);
     const navigate = useNavigate();

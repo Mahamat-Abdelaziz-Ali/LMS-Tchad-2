@@ -6,24 +6,29 @@ import StudentViewCommonLayout from "./components/student-view/common-layout.jsx
 import AddNewCoursePage from "./pages/auth/instructor/add-new-course.jsx"
 import StudentCoursesPage from "./pages/auth/student/student-courses/index.jsx"
 import StudentViewCourseProgressPage from "./pages/auth/student/course-progress/index.jsx"
+import StudentHomePage from "./pages/auth/student/home/index.jsx";
+import { useContext } from "react";
+import { AuthContext } from "./context/auth-context";
+
 
 function App() {
+  const { auth } = useContext(AuthContext);
   return (
    <Routes>
     <Route path= "/auth" 
-    element={<RouteGard />}
-    element={ <AuthPage />}
-    authenticated = {auth?.authenticated}
+    element={<RouterGuard 
+    element={ <AuthPage />}/>}
+    authenticated = {auth?.authenticate}
     user={auth?.user}
      />
      <Route
      path="/instructor/create-new-course"
      element={
       <RouterGuard
-      elament={
+      element={
         <AddNewCoursePage/>
       }
-      authenticated={auth?.authenticated}
+      authenticated={auth?.authenticate}
       user={auth?.user}
       />}
       />
@@ -31,26 +36,26 @@ function App() {
      path="/instructor/edit-course/:courseId"
      element={
       <RouterGuard
-      elament={
+      element={
         <AddNewCoursePage/>
       }
-      authenticated={auth?.authenticated}
+      authenticated={auth?.authenticate}
       user={auth?.user}
       />}
       />
      
-     <Routes path = "/"
+     <Route path = "/"
      element={
-      <RouteGuard
+      <RouterGuard
       element={
         <StudentViewCommonLayout/>
       }
-      authenticated={auth?.authenticated}
+      authenticated={auth?.authenticate}
       user={auth?.user}
       />}
      >
        
-      <Route path="" element={<StudentHomePage/>}/><></>
+      <Route path="/" element={<StudentHomePage/>}/>
       <Route 
       path="home" element={
         <StudentHomePage/>
@@ -75,11 +80,11 @@ function App() {
       path="course-progress/:id" element={
         <StudentViewCourseProgressPage/>}
        />
-       </Routes>
+       </Route>
 
         <Route path="*" element={ <NotFoundPage/>}></Route>
    </Routes>
   )
 }
 
-export default App
+export default App;

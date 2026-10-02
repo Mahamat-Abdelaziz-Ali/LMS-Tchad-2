@@ -1,5 +1,7 @@
-const { Fragment } = require("react");
-const { useLocation, Navigate } = require("react-router-dom");
+//const { Fragment } = require("react");
+import { Fragment } from "react";
+//const { useLocation, Navigate } = require("react-router-dom");
+import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 
 function RouterGuard({authenticated, user, elament}){
@@ -23,7 +25,12 @@ function RouterGuard({authenticated, user, elament}){
             return <Navigate  to = '/instructor'/>
         }
 
-        return <Fragment>{elament}</Fragment>
-}
+        return( <>
+        {/*<Fragment>{elament}</Fragment>*/}
+        {element}
+            <Outlet />
+        </>
+    )
+    }
 
 export default RouterGuard;

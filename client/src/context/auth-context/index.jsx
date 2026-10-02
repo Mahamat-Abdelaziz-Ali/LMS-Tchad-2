@@ -4,7 +4,11 @@ import {
     initialSignInFormData,
     initialSignUpFormData } from "@/config";
 import { createContext, useState, useEffect } from "react";
-
+import {
+    registerService,
+    loginService,
+    checkAuth
+} from "@/services";
 
 export const AuthContext = createContext(null);
 
@@ -25,7 +29,7 @@ export default function AuthProvider({children}){
 
 if(data.success) {
     console.log(data, "data");
-    sessionStorage.setItem("accessToken",JSON.stringify(data.dataaccessToken))
+    sessionStorage.setItem("accessToken",JSON.stringify(data.data.accessToken))
     setAuth({
         authenticate : true,
         user : data.data.user,
@@ -42,7 +46,7 @@ if(data.success) {
 
         if(data.success) {
     console.log(data, "data");
-    sessionStorage.setItem("accessToken",json.stringify(data.data.accessToken))
+    sessionStorage.setItem("accessToken",JSON.stringify(data.data.accessToken))
     setAuth({
         authenticate : true,
         user : data.data.user,
@@ -59,7 +63,7 @@ if(data.success) {
 
     async function checkAuthUser() {
         try{
-            const data = await checkAuthService();
+            const data = await checkAuth();
 
         if(data.success) {
            setAuth({
@@ -81,26 +85,14 @@ if(data.success) {
                 setAuth({
                     authenticate : false,
                     user : null,
-                });
-                setLoading(false);
+                }
+            );
+                //setLoading(false);
             }
         }
-        const data = await checkAuthService();
-
-        if(data.success) {
-           setAuth({
-        authenticate : true,
-        user : data.data.user,
-    })
-    setLoading(false)
-}
-         else {
-            setAuth({
-        authenticate : false,
-        user : null,
-    });
-    setLoading(false)
-        }
+        finally {
+        setLoading(false);
+    }   
     }
 
     function resetCredentials(){
@@ -111,7 +103,7 @@ if(data.success) {
     }
 
     useEffect(()=>{
-        checkAuthService();
+        checkAuthUser();
     }, []);
 
     

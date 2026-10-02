@@ -2,7 +2,7 @@ import {Button} from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AuthContext } from "@/context/auth-context";
 import { StudentContext } from "@/context/student-context";
-import { getCurrentCourseProgressService, markCurrentLectureAsViewedService, resetCurrentCourseProgress, resetCurrentCourseProgressService } from "@/services";
+import { getCurrentCourseProgressService, markCurrentLectureAsViewedService, resetCurrentCourseProgressService } from "@/services";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 //import Confetti from "react-confetti";            ///dist/types/confetti";

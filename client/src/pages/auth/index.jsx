@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom"
 import { GraduationCap } from "lucide-react"
 import {
@@ -9,9 +9,7 @@ import {
 } from "@/components/ui/tabs"
 import { signUpFormControls } from "@/config";
 import { CardHeader } from "@/components/ui/card";
-import { useCSPContext } from "@base-ui/react/internals/csp-context";
 import { AuthContext } from "@/context/auth-context";
-import { log } from "node:console";
 
 
 function AuthPage() {
@@ -20,9 +18,9 @@ const {
     signInFormData,
     setSignInFormData,
     signUpFormData, 
-    setSignIUpFormData,
+    setSignUpFormData,
     handleRegisterUser,
-    handleLoginUser
+    handleLogInUser
 } = useContext(AuthContext);
 
 function handleTabChange(value){

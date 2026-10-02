@@ -3,7 +3,7 @@
 //import { useContext } from "react";
 
 import { Button } from "@base-ui/react";
-import banner from "../../../../public/banner-img.png"
+//import banner from "../../../../public/banner-img.png"
 import { useContext, useState } from "react";
 import { StudentContext } from "@/context/student-context";
 import { fetchStudentViewCourseListService } from "@/services";
@@ -71,7 +71,7 @@ function StudentHomePage() {
             <p className="text-xl">Skills for your present and your future. Get Started with US</p>
             </div>
             <div className="lg:w-full mb-8 lg:mb-0">
-                <img src={banner} width={600} height={400} className="w-full h-auto rounded-lg shadow-lg" alt="" />
+                <img src="/banner-img.png" width={600} height={400} className="w-full h-auto rounded-lg shadow-lg" alt="" />
             </div>
         </section>
         <section className="py-8 px-4 lg:px-8 bg-gray-100">

@@ -1,16 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { access } from "fs";
+//import { access } from "fs";
 import { DollarSign, Users } from "lucide-react";
+import {
+    Table,
+    TableHeader,
+    TableBody,
+    TableHead,
+    TableRow,
+    TableCell,
+} from "@/components/ui/table";
 
 
-function InstructorDashboard(listOfCourses) {
+function InstructorDashboard({listOfCourses}) {
 
     function calculateTotalStudentsAndProfit() {
         const {totalStudents, totalProfit, studentList} = listOfCourses.reduce(
-            (access, course)=>{
+            (accumulator, course)=>{
                 const studentCount = course.students.length;
-                access.totalStudents += studentCount;
-                access.totalProfit += course.pricing * studentCount;
+                accumulator.totalStudents += studentCount;
+                accumulator.totalProfit += course.pricing * studentCount;
 
 
                 course.students.forEach(student =>{
@@ -21,11 +29,11 @@ function InstructorDashboard(listOfCourses) {
                     })
                 })
 
-                return acc;
+                return accumulator;
             },
             {
                 totalStudents : 0,
-                totalProfit : []
+                totalProfit : 0
             }
         );
 
